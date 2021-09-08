@@ -1,0 +1,25 @@
+{
+  "name": "post-account-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/index.js",
+    "build": "copyfiles -u 1 ./src/* ./build && cd ./build && npm i --production && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gwapes/post-account-lambda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gwapes/post-account-lambda/issues"
+  },
+  "homepage": "https://github.com/gwapes/post-account-lambda#readme",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "jest": "^27.1.1"
+  }
+}
