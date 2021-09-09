@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node src/index.js",
-    "build": "copyfiles -u 1 ./src/* ./build && cd ./build && npm i --production && cd .."
+    "build": "npm run copy:src",
+    "copy:src": "copyfiles -u 1 ./src/**/* ./build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/gwapes/post-account-lambda#readme",
   "devDependencies": {
     "copyfiles": "^2.4.1",
-    "jest": "^27.1.1"
+    "jest": "^27.1.1",
+    "aws-sdk": "^2.985.0"
   }
 }
