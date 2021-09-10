@@ -1,4 +1,4 @@
-const mapper = require('../../src/mappers/post-request');
+const mapper = require('../../src/mapping/post-request');
 const hasher = require('../../src/encryption/password-hash');
 
 jest.mock('../../src/encryption/password-hash');
