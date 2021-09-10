@@ -16,6 +16,7 @@ exports.handler = async (event) => {
 const createResponse = (statusCode, payload) => {
     return {
         statusCode: statusCode,
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(payload)
     }
 };

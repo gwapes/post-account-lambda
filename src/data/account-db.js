@@ -1,17 +1,10 @@
 'use-strict';
 const AWS = require('aws-sdk');
 const client = new AWS.DynamoDB({apVersion: '2012-08-10'});
+const { map } = require('../mappers/post-request');
 
-const saveUser = async (user) => {
-    const params = {
-        Item: {
-            email: { S: user.email },
-            username: { S: user.username },
-            password: { S: user.password }
-        },
-        TableName: 'user-accounts'
-    };
-
+const saveUser = async (request) => {
+    const params = map(request);
     await client.putItem(params).promise();
 };
 
