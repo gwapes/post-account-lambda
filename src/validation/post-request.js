@@ -1,10 +1,18 @@
+const email = require('./email');
+const password = require('./password');
+const username = require('./username');
+
 const validate = (request) => {
-    //required field validation
-    //valid email address
-    //secure password validation
-    //username validation
-    //duplicate username check
-    //duplicate email check
+    let result = { 
+        isValid: true, 
+        messages: []
+    };
+
+    result = email.validate(request.email, result);
+    result = password.validate(request.password, result);
+    result = username.validate(request.username, result);
+
+    return result;
 }
 
 module.exports = { validate };
