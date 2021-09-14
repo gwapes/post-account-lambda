@@ -1,24 +1,9 @@
 const getEmailQuery = (email) => {
-    return createQuery({
-        email: {
-            S: email
-        }
-    });
+    return `SELECT * FROM "${process.env.USER_ACCOUNTS_TABLE}" WHERE "email" = '${email}'`;
 };
 
 const getUsernameQuery = (username) => {
-    return createQuery({
-        username: {
-            S: username
-        }
-    });
-};
-
-const createQuery = (key) => {
-    return {
-        Key: key,
-        TableName: process.env.USER_ACCOUNTS_TABLE
-    };
+    return `SELECT * FROM "${process.env.USER_ACCOUNTS_TABLE}" WHERE "username" = '${username}'`;
 };
 
 module.exports = { getEmailQuery, getUsernameQuery };

@@ -6,18 +6,11 @@ describe('user query builder', () => {
         afterEach(() => { delete process.env.USER_ACCOUNTS_TABLE; });
 
         it('should return valid email query', () => {
-            const expected = {
-                Key: {
-                    email: {
-                        S: "gwapes@email.com"
-                    }
-                },
-                TableName: 'fakedb'
-            };
+            const expected = 'SELECT * FROM "fakedb" WHERE "email" = \'gwapes@email.com\'';
 
             const actual = mapper.getEmailQuery('gwapes@email.com');
 
-            expect(actual).toStrictEqual(expected);
+            expect(actual).toEqual(expected);
         });
     });
 
@@ -26,18 +19,11 @@ describe('user query builder', () => {
         afterEach(() => { delete process.env.USER_ACCOUNTS_TABLE; });
 
         it('should return valid username query', () => {
-            const expected = {
-                Key: {
-                    username: {
-                        S: "gwapes"
-                    }
-                },
-                TableName: 'fakedb'
-            };
+            const expected = 'SELECT * FROM "fakedb" WHERE "username" = \'gwapes\'';
 
             const actual = mapper.getUsernameQuery('gwapes');
 
-            expect(actual).toStrictEqual(expected);
+            expect(actual).toEqual(expected);
         });
     });
 });

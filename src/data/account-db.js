@@ -9,7 +9,7 @@ const saveUser = async (request) => {
 };
 
 const getUser = async (query) => {
-    const result = await client.getItem(query).promise();
+    const result = await client.executeStatement({ Statement: query }).promise();
 
     return result ?? result.Item;
 };
