@@ -1,16 +1,12 @@
 const getEmailQuery = (email) => {
     return createQuery({
-        "email": {
-            S: email
-        }
+        "email": email
     });
 };
 
 const getUsernameQuery = (username) => {
     return createQuery({
-        "username": {
-            S: username
-        }
+        "username": username
     });
 };
 
