@@ -6,10 +6,11 @@
   "scripts": {
     "test": "jest",
     "start": "node src/index.js",
-    "build": "npm run copy:src && npm run copy:package && npm run install:prod",
+    "build": "npm run del:build && npm run copy:src && npm run copy:package && npm run install:prod",
     "copy:src": "copyfiles -u 1 ./src/**/* ./build",
     "copy:package": "copyfiles ./package*.json ./build",
-    "install:prod": "cd ./build && npm install --production && cd ../"
+    "install:prod": "cd ./build && npm install --production && cd ../",
+    "del:build": "rimraf build"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
   "devDependencies": {
     "aws-sdk": "^2.985.0",
     "copyfiles": "^2.4.1",
-    "jest": "^27.1.1"
+    "jest": "^27.1.1",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "uuid": "^8.3.2"

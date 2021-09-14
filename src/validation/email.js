@@ -1,6 +1,9 @@
-validate = (email, result) => {
+const { getEmailQuery } = require('../mapping/users-query');
+const { getUser } = require('../data/account-db');
+
+validate = async (email, result) => {
     if (email) {
-        result = validateEmail(email, result);
+        result = await validateEmail(email, result);
     } else {
         result.isValid = false;
         result.messages.push('An email address is required for account creation.');
@@ -9,7 +12,7 @@ validate = (email, result) => {
     return result;
 }
 
-const validateEmail = (email, result) => {
+const validateEmail = async (email, result) => {
     const [personal, domain] = email.split('@');
 
     if (!personal || !domain) {
@@ -18,8 +21,7 @@ const validateEmail = (email, result) => {
     } else {
         result = validatePersonal(personal, result);
         result = validateDomain(domain, result);
-
-        //TODO duplicate email check
+        result = await validateDuplicate(email, result);
     }
 
     return result;
@@ -48,6 +50,17 @@ const validateDomain = (domain, result) => {
     if (!domain.match(/^[0-9a-zA-Z\-.]+$/)) {
         result.isValid = false;
         result.messages.push('Domain portion of email address contains invalid characters.');
+    }
+
+    return result;
+};
+
+const validateDuplicate = async (email, result) => {
+    const user = await getUser(getEmailQuery(email));
+
+    if (!user) {
+        result.isValid = false;
+        result.messages.push('Provided email address already exists. Please use another.');
     }
 
     return result;

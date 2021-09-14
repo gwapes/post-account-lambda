@@ -5,7 +5,7 @@ exports.handler = async (event) => {
     let response = {};
     try {
         const requestBody = JSON.parse(event.body);
-        const validationResult = validate(requestBody);
+        const validationResult = await validate(requestBody);
         if (validationResult.isValid) {
             await saveUser(requestBody);
             response = createResponse(201, { message: 'User successfully created!' });

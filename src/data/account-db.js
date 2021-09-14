@@ -8,4 +8,10 @@ const saveUser = async (request) => {
     await client.putItem(params).promise();
 };
 
-module.exports = { saveUser };
+const getUser = async (query) => {
+    const result = await client.getItem(query).promise();
+
+    return result ?? result.Item;
+};
+
+module.exports = { saveUser, getUser };

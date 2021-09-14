@@ -63,5 +63,5 @@ const mockDB = (isSuccess) => {
 };
 
 const mockValidator = (isValid, messages) => {
-    jest.spyOn(validator, 'validate').mockReturnValue({ isValid, messages });
+    jest.spyOn(validator, 'validate').mockResolvedValue({ isValid, messages });
 };

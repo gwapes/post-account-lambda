@@ -1,4 +1,7 @@
 const validator = require('../../src/validation/email');
+const db = require('../../src/data/account-db');
+
+jest.mock('../../src/data/account-db');
 
 describe('email validator', () => {
     let actual = {};
@@ -10,13 +13,19 @@ describe('email validator', () => {
         };
     });
 
-    it('should return email is valid', () => {
+    afterEach(() => {
+        jest.resetModules();
+        jest.resetAllMocks();
+    });
+
+    it('should return email is valid', async () => {
         const expected = {
             isValid: true,
             messages: []
         };
+        mockDB(true);
 
-        actual = validator.validate('gwapes@domain.org', actual);
+        actual = await validator.validate('gwapes@domain.org', actual);
 
         expect(actual).toStrictEqual(expected);
     });
@@ -25,13 +34,14 @@ describe('email validator', () => {
         ['domain', 'personal@'],
         ['domain', 'personal'],
         ['personal', '@domain.org']
-    ])('should return invalid when %s is missing', (n, email) => {
+    ])('should return invalid when %s is missing', async (n, email) => {
         const expected = {
             isValid: false,
             messages: ['Email address must be of correct email address format (e.g. myname@domain.com).']
         };
+        mockDB(true);
 
-        actual = validator.validate(email, actual);
+        actual = await validator.validate(email, actual);
 
         expect(actual).toStrictEqual(expected);
     });
@@ -49,14 +59,32 @@ describe('email validator', () => {
         ['domain portion contains invalid characters',
             'gwapes@&^Az9!.c0m',
             'Domain portion of email address contains invalid characters.']
-    ])('should return invalid when %s', (n, email, expectedMessage) => {
+    ])('should return invalid when %s', async (n, email, expectedMessage) => {
         const expected = {
             isValid: false,
             messages: [expectedMessage]
         };
+        mockDB(true);
 
-        actual = validator.validate(email, actual);
+        actual = await validator.validate(email, actual);
+
+        expect(actual).toStrictEqual(expected);
+    });
+
+    it('should return invalid when there is duplicate email', async () => {
+        const expected = {
+            isValid: false,
+            messages: ['Provided email address already exists. Please use another.']
+        };
+        mockDB(false);
+
+        actual = await validator.validate('gwapes@email.com', actual);
 
         expect(actual).toStrictEqual(expected);
     });
 });
+
+const mockDB = (hasValue) => {
+    const response = hasValue ? { "contents": "stuff" } : null;
+    jest.spyOn(db, 'getUser').mockResolvedValue(response);
+};
