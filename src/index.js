@@ -1,10 +1,17 @@
 const { saveUser } = require('./data/account-db');
+const { validate } = require('./validation/post-request');
 
 exports.handler = async (event) => {
     let response = {};
     try {
-        await saveUser(JSON.parse(event.body));
-        response = createResponse(201, { message: 'User successfully created!' });
+        const requestBody = JSON.parse(event.body);
+        const validationResult = validate(requestBody);
+        if (validationResult.isValid) {
+            await saveUser(requestBody);
+            response = createResponse(201, { message: 'User successfully created!' });
+        } else {
+            response = createResponse(400, { errors: validationResult.messages })
+        }
     } catch (err) {
         console.error(`An error occurred. ${err.message} --- ${err.stack}`);
         response = createResponse(500, { message: 'Some error occurred while processing your request.' });
