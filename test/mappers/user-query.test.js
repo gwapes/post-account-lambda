@@ -8,7 +8,9 @@ describe('user query builder', () => {
         it('should return valid email query', () => {
             const expected = {
                 Key: {
-                    email: "gwapes@email.com"
+                    email: {
+                        S: "gwapes@email.com"
+                    }
                 },
                 TableName: 'fakedb'
             };
@@ -26,7 +28,9 @@ describe('user query builder', () => {
         it('should return valid username query', () => {
             const expected = {
                 Key: {
-                    username: "gwapes"
+                    username: {
+                        S: "gwapes"
+                    }
                 },
                 TableName: 'fakedb'
             };
