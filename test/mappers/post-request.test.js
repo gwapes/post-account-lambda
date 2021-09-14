@@ -33,7 +33,13 @@ describe('post user request mapper', () => {
 
         const actual = mapper.map(request);
 
-        expect(actual).toStrictEqual(expected);
+        expect(actual.Item.email).toStrictEqual(expected.Item.email);
+        expect(actual.Item.username).toStrictEqual(expected.Item.username);
+        expect(actual.Item.password).toStrictEqual(expected.Item.password);
+        expect(actual.Item.salt).toStrictEqual(expected.Item.salt);
+        expect(actual.Item.id.S).toBeTruthy();
+        expect(actual.Item.created_at.S).toBeTruthy();
+        expect(actual.Item.updated_at.S).toBeTruthy();
     });
 });
 
