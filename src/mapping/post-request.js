@@ -11,8 +11,8 @@ const map = (request) => {
             username: { S: request.username },
             password: { S: result.hash },
             salt: { S: result.salt },
-            created_at: { S: new Date() },
-            updated_at: { S: new Date() }
+            created_at: { S: new Date().toISOString() },
+            updated_at: { S: new Date().toISOString() }
         },
         TableName: process.env.USER_ACCOUNTS_TABLE
     };
