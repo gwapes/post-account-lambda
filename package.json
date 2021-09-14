@@ -28,7 +28,5 @@
     "jest": "^27.1.1",
     "rimraf": "^3.0.2"
   },
-  "dependencies": {
-    "uuid": "^8.3.2"
-  }
+  "dependencies": {}
 }

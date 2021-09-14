@@ -37,7 +37,6 @@ describe('post user request mapper', () => {
         expect(actual.Item.username).toStrictEqual(expected.Item.username);
         expect(actual.Item.password).toStrictEqual(expected.Item.password);
         expect(actual.Item.salt).toStrictEqual(expected.Item.salt);
-        expect(actual.Item.id.S).toBeTruthy();
         expect(actual.Item.created_at.S).toBeTruthy();
         expect(actual.Item.updated_at.S).toBeTruthy();
     });
