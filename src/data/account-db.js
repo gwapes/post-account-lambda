@@ -11,7 +11,7 @@ const saveUser = async (request) => {
 const getUser = async (query) => {
     const result = await client.executeStatement({ Statement: query }).promise();
 
-    return result ?? result.Items;
+    return result ? result.Items[0] : null;
 };
 
 module.exports = { saveUser, getUser };

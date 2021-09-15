@@ -58,7 +58,7 @@ const validateDomain = (domain, result) => {
 const validateDuplicate = async (email, result) => {
     const user = await getUser(getEmailQuery(email));
 
-    if (!user) {
+    if (user) {
         result.isValid = false;
         result.messages.push('Provided email address already exists. Please use another.');
     }

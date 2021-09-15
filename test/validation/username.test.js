@@ -27,7 +27,7 @@ describe('username validator', () => {
             isValid: true,
             messages: []
         };
-        mockDB(true);
+        mockDB(false);
 
         actual = await validator.validate(username, actual);
 
@@ -44,7 +44,7 @@ describe('username validator', () => {
             isValid: false,
             messages: [expectedMessage]
         };
-        mockDB(true);
+        mockDB(false);
 
         actual = await validator.validate(username, actual);
 
@@ -56,7 +56,7 @@ describe('username validator', () => {
             isValid: false,
             messages: ['Provided username is currently in use. Please try another username.']
         };
-        mockDB(false);
+        mockDB(true);
 
         actual = await validator.validate('gwapes', actual);
 

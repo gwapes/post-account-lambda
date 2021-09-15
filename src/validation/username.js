@@ -30,7 +30,7 @@ const validateUsername = (username, result) => {
 const validateDuplicate = async (username, result) => {
     const user = await getUser(getUsernameQuery(username));
 
-    if (!user) {
+    if (user) {
         result.isValid = false;
         result.messages.push('Provided username is currently in use. Please try another username.');
     }

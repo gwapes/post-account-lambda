@@ -23,7 +23,7 @@ describe('email validator', () => {
             isValid: true,
             messages: []
         };
-        mockDB(true);
+        mockDB(false);
 
         actual = await validator.validate('gwapes@domain.org', actual);
 
@@ -39,7 +39,7 @@ describe('email validator', () => {
             isValid: false,
             messages: ['Email address must be of correct email address format (e.g. myname@domain.com).']
         };
-        mockDB(true);
+        mockDB(false);
 
         actual = await validator.validate(email, actual);
 
@@ -64,7 +64,7 @@ describe('email validator', () => {
             isValid: false,
             messages: [expectedMessage]
         };
-        mockDB(true);
+        mockDB(false);
 
         actual = await validator.validate(email, actual);
 
@@ -76,7 +76,7 @@ describe('email validator', () => {
             isValid: false,
             messages: ['Provided email address already exists. Please use another.']
         };
-        mockDB(false);
+        mockDB(true);
 
         actual = await validator.validate('gwapes@email.com', actual);
 
